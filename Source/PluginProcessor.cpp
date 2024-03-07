@@ -118,6 +118,12 @@ void FirstVSTAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = 2;
+    spec.sampleRate = sampleRate;
+
+    gainDSP.prepare(spec);
+    pannerDSP.prepare(spec);
 }
 
 void FirstVSTAudioProcessor::releaseResources()
@@ -173,12 +179,22 @@ void FirstVSTAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
+//    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+//    {
+//        auto* channelData = buffer.getWritePointer (channel);
+//
+//        // ..do something to the data...
+//    }
+    
+    gainDSP.setGainDecibels(*gain);
+    pannerDSP.setRule(static_cast<juce::dsp::PannerRule>((int)*panRule));
+    pannerDSP.setPan(*panAngle / 100);
 
-        // ..do something to the data...
-    }
+    juce::dsp::AudioBlock<float> audioBlock(buffer);
+    juce::dsp::ProcessContextReplacing<float> context(audioBlock);
+
+    gainDSP.process(context);
+    pannerDSP.process(context);
 }
 
 //==============================================================================

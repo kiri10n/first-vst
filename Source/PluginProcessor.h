@@ -61,6 +61,7 @@ private:
     
     juce::dsp::Gain<float> gainDSP;
     juce::dsp::Panner<float> pannerDSP;
+    
     juce::dsp::ProcessSpec spec;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FirstVSTAudioProcessor)
