@@ -10,9 +10,19 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-FirstVSTAudioProcessorEditor::FirstVSTAudioProcessorEditor (FirstVSTAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+FirstVSTAudioProcessorEditor::FirstVSTAudioProcessorEditor (FirstVSTAudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
+    : AudioProcessorEditor (&p), audioProcessor (p) , valueTreeState(vts)
 {
+    gainSliderAttachment.reset(new SliderAttachment(valueTreeState, "gain", gainSlider));
+    addAndMakeVisible(gainSlider);
+    panAngleSliderAttachment.reset(new SliderAttachment(valueTreeState, "panangle", panAngleSlider));
+    addAndMakeVisible(panAngleSlider);
+    panRuleBox.addItemList(
+        juce::StringArray("linear", "balanced", "sin3dB", "sin4.5dB", "sin6dB",
+            "sqrt3dB", "sqrt4.5dB"),
+        1);
+    panRuleBoxAttachment.reset(new ComboBoxAttachment(valueTreeState, "panrule", panRuleBox));
+    addAndMakeVisible(panRuleBox);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (400, 300);
