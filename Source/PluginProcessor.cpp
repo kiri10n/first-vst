@@ -29,7 +29,8 @@ FirstVSTAudioProcessor::FirstVSTAudioProcessor()
                 juce::NormalisableRange<float>(-100.0f, 10.0f),
                 0.0f),
             std::make_unique<juce::AudioParameterChoice>(
-                "panrule", "Pan Rule",
+                "panrule", 
+                "Pan Rule",
                 juce::StringArray("linear", "balanced", "sin3dB", "sin4p5dB",
                                     "sin6dB", "squareRoot3dB",
                                     "squareRoot4p5dB"),
@@ -41,6 +42,9 @@ FirstVSTAudioProcessor::FirstVSTAudioProcessor()
                 0.0f),
         })
 {
+    gain = parameters.getRawParameterValue("gain");
+    panAngle = parameters.getRawParameterValue("panangle");
+    panRule = parameters.getRawParameterValue("panrule");
 }
 
 FirstVSTAudioProcessor::~FirstVSTAudioProcessor()
