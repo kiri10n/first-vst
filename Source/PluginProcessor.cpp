@@ -189,7 +189,7 @@ bool FirstVSTAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* FirstVSTAudioProcessor::createEditor()
 {
-    return new FirstVSTAudioProcessorEditor (*this);
+    return new FirstVSTAudioProcessorEditor (*this, parameters);
 }
 
 //==============================================================================
