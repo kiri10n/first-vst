@@ -17,7 +17,7 @@
 class FirstVSTAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    FirstVSTAudioProcessorEditor (FirstVSTAudioProcessor&);
+    FirstVSTAudioProcessorEditor (FirstVSTAudioProcessor&, juce::AudioProcessorValueTreeState& vts);
     ~FirstVSTAudioProcessorEditor() override;
 
     //==============================================================================
