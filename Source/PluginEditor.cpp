@@ -47,4 +47,7 @@ void FirstVSTAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    gainSlider.setBounds(10, 10, 200, 30);
+    panAngleSlider.setBounds(10, 40, 200, 30);
+    panRuleBox.setBounds(10, 70, 200, 30);
 }
