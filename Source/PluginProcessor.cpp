@@ -21,6 +21,25 @@ FirstVSTAudioProcessor::FirstVSTAudioProcessor()
                      #endif
                        )
 #endif
+    , parameters(*this, nullptr, juce::Identifier("tutorial"),
+        {
+            std::make_unique<juce::AudioParameterFloat>(
+                "gain",
+                "Gain",
+                juce::NormalisableRange<float>(-100.0f, 10.0f),
+                0.0f),
+            std::make_unique<juce::AudioParameterChoice>(
+                "panrule", "Pan Rule",
+                juce::StringArray("linear", "balanced", "sin3dB", "sin4p5dB",
+                                    "sin6dB", "squareRoot3dB",
+                                    "squareRoot4p5dB"),
+                1),
+            std::make_unique<juce::AudioParameterFloat>(
+                "panangle",
+                "Pan Angle",
+                juce::NormalisableRange<float>(-100.0f, 100.0f),
+                0.0f),
+        })
 {
 }
 
